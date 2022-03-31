@@ -1,5 +1,6 @@
 import  { useState } from 'react'
 import { useNavigate} from 'react-router-dom'
+//import jwt from 'jsonwebtoken'
 
 function App() {
   const navigate = useNavigate()
@@ -26,12 +27,24 @@ function App() {
         localStorage.setItem('token', data.user)
         alert('login succesful')
         
-        navigate('/Todo')
+        //navigate('/Todo')
 
       }else {
         alert('please cheack your username and password')
       }
       console.log(data)
+  }
+
+  const userAuthenticated= () =>{
+     fetch('http://localhost:3001/isUserAuth', {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}` 
+    },
+
+     }).then((response) => response.json())
+     .then(data => console.log(data))
+
+       //console.log(response.body);
   }
 
   return (
@@ -55,7 +68,7 @@ function App() {
         
         />
 
-        <input type="submit" value="Login"/>
+        <input type="submit" value="Login" onClick={userAuthenticated}/>
         
       </form>
     </div>

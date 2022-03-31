@@ -1,13 +1,13 @@
 import React, {useEffect}from 'react'
 import jwt from 'jsonwebtoken'
 import {  Route, Routes, useNavigate } from 'react-router-dom'
-//import "bootstrap/dist/css/bootstrap.css";
+
 import TodoForm from './TodoForm';
 
 
 const Todo = () =>{  
     const navigate = useNavigate()
-
+    /* 
     async function populateQuote() {
         const req = await fetch('http://localhost:3001/api/quote', {
             headers: {
@@ -17,7 +17,7 @@ const Todo = () =>{
         })
         const data = req.json()
         console.log(data)
-    }
+    } */
 
     useEffect(() =>{
         const token = localStorage.getItem('token')
@@ -27,7 +27,7 @@ const Todo = () =>{
                 localStorage.removeItem('token')
                 navigate('/login')
             } else {
-                populateQuote()
+                return ({satus: 'error'})
             }
         }
     }, [])

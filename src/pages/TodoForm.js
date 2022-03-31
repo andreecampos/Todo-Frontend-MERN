@@ -15,6 +15,7 @@ function TodoForm() {
       const GetTodos =  () =>{
 
           fetch('http://localhost:3001/todos')
+          
             .then(res => res.json())
             .then(data => setTodos(data))
             .catch(err => console.error("Error: ", err));
@@ -71,7 +72,7 @@ function TodoForm() {
                     <div className="checkbox"></div>
                     
                     <div className="text">{todo.task}</div>
-                    <br/>
+                    <br/>  
                     <div className="description">{todo.description}</div>
                     <div className="delete-todo" onClick={()=> deleteTodo(todo._id)}>x</div>
                    
