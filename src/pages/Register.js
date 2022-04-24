@@ -28,6 +28,7 @@ function App() {
 
       if(data.status === 'ok'){
         navigate('/login')
+        
       }
   }
   

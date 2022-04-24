@@ -27,10 +27,12 @@ function App() {
         localStorage.setItem('token', data.user)
         alert('login succesful')
         
-        //navigate('/Todo')
+        navigate('/Todo')
+        //console.log(data.user) här ligger token
 
       }else {
         alert('please cheack your username and password')
+        
       }
       console.log(data)
   }
