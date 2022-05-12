@@ -115,12 +115,12 @@ function TodoForm({completed}) {
 
   
     return (
-        <div className= "todos">
+        <div className= "todos" >
             <h1>Check all your task below </h1>
             <Link to="/complete" className="button" >Completed Todo </Link>
 
             { todos.map(todo => (
-            <>
+            
             <div 
             className={"todo " + (todo.complete ? "is-complete" : "")}
                         key={todo._id} onClick={()=> completeTodo(todo._id)}>
@@ -139,7 +139,7 @@ function TodoForm({completed}) {
                
                    
             </div>
-            </>
+            
             ))}
 
 

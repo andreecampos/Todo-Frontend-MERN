@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from 'axios'
 import { toast } from "react-toastify"
 
@@ -14,7 +14,7 @@ const DetailTodo = () =>{
     const [fileData, setFileData] = useState("")
     const [files, setFiles] = useState([])
 
-    /*
+    //----------------Redigera inputs---------
     const loadTodoDetail = () => {
 
         fetch(`http://localhost:3001/detail/${id}`,{
@@ -27,8 +27,12 @@ const DetailTodo = () =>{
         .then((data) => setTodoData(data.entry));
     }
 
-    loadTodoDetail()
+    //loadTodoDetail()
+    useEffect(() => {
+        loadTodoDetail()
+         }, [])
 
+    
     function handleOnSubmit(e){
         e.preventDefault()
         const payload = {task, description}
@@ -38,28 +42,16 @@ const DetailTodo = () =>{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(payload)
         })
         .then(res => res.json())
         .then(data => console.log(data))
 
-    } */
+    } 
 
-    function fetchFileList() {
-        const url = `http://localhost:3001/upload`
-        const token = localStorage.getItem('token')
-        const headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            };
-        fetch(url, {
-            headers: headers,
-          })
-            .then((res) => res.json())
-            .then((data) => setFileData(data.filename));
-         };
+    //-------MULTER--------------------
 
          function onInputChange(e){
             console.log(e.target.files)
@@ -70,37 +62,53 @@ const DetailTodo = () =>{
             e.preventDefault()
     
             const data = new FormData()
-    
+            
+            
             for(let i = 0; i < files.length; i++){
                 data.append("file", files[i])
             }
     
             // data.append("file", files) 
     
-            axios.post("http://localhost:3001/upload", data)
-                .then((e) => {
-                    console.log("Success")
+            axios.post("http://localhost:3001/upload/"+ id, data)
+                .then((res) => {
+            
+                    console.log(res.data)
+                    setTodoData(res.data)
                     toast.success("Upload Success")
                 })
                 .catch((e) => {
                     console.error("Error", e)
                     toast.error("Upload Error")
                 })
-                fetchFileList()
+                
         }
+        function deleteFile(filename){
+            axios.delete("http://localhost:3001/upload/"+ id, {data: {filename:filename}})
+            .then((res) => {
+        
+                console.log(res.data)
+                setTodoData(res.data)
+                
+            })
+            .catch((e) => {
+                console.error("Error", e)
+            
+            })
+        } 
+
+        //console.log("todoss", todoData)
+        //mostrar una pagina e blanco hasta que se carge
+        if(!todoData)
+        {return null}
+
     return(
         <main>
             <h1>Detail Page of ID { id } </h1>
             <h2>task: {todoData.task}</h2>
             <p>Description: {todoData.description}</p>
-            <br/>
-            {fileData &&(
-                <>
-                <h2>Attachments: {fileData}</h2>
-                </>
-            )}
             
-            <form >
+            <form  onSubmit={handleOnSubmit}>
 
                 Edit Task: 
                 <input
@@ -118,16 +126,26 @@ const DetailTodo = () =>{
             </form>
             <br/>
 
-            <form method="post" action="/" id="" onSubmit={onFileSubmit}>
+            <form method="post" action="/upload" id="" onSubmit={onFileSubmit}  >
                 <label>Upload your file</label>
                 <input 
                     type="file"
                     onChange={onInputChange} 
+                    name="file"
                     multiple 
                 />
                 <button type="submit">Submit</button>
-            </form> 
-
+                <br/>
+                
+            
+            </form>
+        //man kan kalla file vas som helst 
+            {todoData.files.map(file => 
+            <div key={file}>
+            <a href={`http://localhost:3001/${file}`} >{file}</a>
+            <button onClick={()=> deleteFile(file)} >delete</button>
+            </div> 
+            )}
         </main>
     )
 }
