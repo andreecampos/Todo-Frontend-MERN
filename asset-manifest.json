@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Todo-mern-client/static/css/main.ae6a1679.chunk.css",
+    "main.js": "/Todo-mern-client/static/js/main.a04d97aa.chunk.js",
+    "main.js.map": "/Todo-mern-client/static/js/main.a04d97aa.chunk.js.map",
+    "runtime-main.js": "/Todo-mern-client/static/js/runtime-main.1b4fca88.js",
+    "runtime-main.js.map": "/Todo-mern-client/static/js/runtime-main.1b4fca88.js.map",
+    "static/js/2.9d8bf819.chunk.js": "/Todo-mern-client/static/js/2.9d8bf819.chunk.js",
+    "static/js/2.9d8bf819.chunk.js.map": "/Todo-mern-client/static/js/2.9d8bf819.chunk.js.map",
+    "index.html": "/Todo-mern-client/index.html",
+    "static/css/main.ae6a1679.chunk.css.map": "/Todo-mern-client/static/css/main.ae6a1679.chunk.css.map",
+    "static/js/2.9d8bf819.chunk.js.LICENSE.txt": "/Todo-mern-client/static/js/2.9d8bf819.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1b4fca88.js",
+    "static/js/2.9d8bf819.chunk.js",
+    "static/css/main.ae6a1679.chunk.css",
+    "static/js/main.a04d97aa.chunk.js"
+  ]
+}
